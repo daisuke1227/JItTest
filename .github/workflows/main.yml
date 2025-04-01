@@ -1,0 +1,30 @@
+name: Build Swift Project
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: macos-latest  # Use macOS runner to compile Swift
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies (if needed)
+        run: |
+          brew update
+          brew install swiftlint  # Example: Install SwiftLint (if needed)
+
+      - name: Build the project
+        run: |
+          swift build -v  # Use Swift Package Manager (SPM)
+
+      - name: Run tests
+        run: |
+          swift test  # Run unit tests
